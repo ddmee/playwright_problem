@@ -32,7 +32,7 @@ jobs:
 
       - name: Update .env for tests to point to localhost
         run: |
-          sed -i '/DATABASE_URI/c DATABASE_URI=postgresql://USER:PASSWORD@localhost:666/machines' .env
+          sed -i '/DATABASE_URI/c DATABASE_URI=postgresql://USER:PASSWORD@localhost:666/postgres' .env
 
       - name: Run pytest
         run: |
