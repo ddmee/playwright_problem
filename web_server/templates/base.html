@@ -1,0 +1,31 @@
+{% import 'macros.html' as macros %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+    <nav>
+      <ul>
+        {% if current_user.is_anonymous %}
+          <li>
+            <a href="{{ url_for('login') }}">Login</a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{{ url_for('logout') }}">Logout</a>
+          </li>
+        {% endif %}
+      </ul>
+      <span>
+      {% if current_user.is_authenticated %}
+          User: {{ current_user.email }}
+      {% endif %}
+      </span>
+    </nav>
+
+    <div>{% block content %}{% endblock %}</div>
+
+</body>
+</html>

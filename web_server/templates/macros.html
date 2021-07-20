@@ -1,0 +1,10 @@
+{% macro display_errors(field) %}
+    <div>
+        {% if field.errors %}
+            {% for error in field.errors %}
+            <div> <p style="color:red">{{error}}</p> </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endmacro %}

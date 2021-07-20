@@ -1,0 +1,39 @@
+name: docker-pytest
+
+on: [push]
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install pipenv
+        run: |
+          python -m pip install pipenv
+
+      - name: Setup pipenv (dev) environment
+        run: |
+          pipenv install -d
+
+      - name: Setup playwright
+        run: |
+          pipenv run playwright install
+
+      - name: Run docker containers
+        run: |
+          scripts/docker_go.sh
+
+      - name: Update .env for tests to point to localhost
+        run: |
+          sed -i '/DATABASE_URI/c DATABASE_URI=postgresql://USER:PASSWORD@localhost:666/machines' .env
+
+      - name: Run pytest
+        run: |
+          pipenv run pytest
