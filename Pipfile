@@ -17,6 +17,8 @@ playwright = "*"
 pytest = "*"
 pytest-playwright = "*"
 pytest-env = "*"
+polling2 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"
