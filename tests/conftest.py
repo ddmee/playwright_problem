@@ -14,7 +14,7 @@ import test_lib.login_page as login_page
 def wait_on_server():
     """Server may not be available at first. Wait on it before running tests"""
     polling2.poll(target=lambda: requests.get(server_url()).status_code == 200,
-                  step=1, timeout=30)
+                  step=1, timeout=30, ignore_exceptions=(requests.exceptions.ConnectionError,))
 
 @pytest.fixture()
 def sign_in_write_user(page: Page):
